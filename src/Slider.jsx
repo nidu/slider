@@ -335,13 +335,14 @@ class Slider extends React.Component {
     if (this.props.highlightChange && this.props.defaultValue !== undefined) {
       const v1 = this.calcOffset(this.props.defaultValue);
       const v2 = this.calcOffset(this.state.upperBound);
-      
-      if (v1 != v2) {
+
+      if (v1 !== v2) {
         const [lowerOffset, upperOffset] = v2 > v1 ? [v1, v2] : [v2, v1];
-      
+        const {prefixCls, vertical, included} = this.props;
+
         return (
-          <Track className={prefixCls + '-track-change'} vertical = {vertical} included={isIncluded}
-                offset={lowerOffset} length={upperOffset - lowerOffset}/>
+          <Track className={prefixCls + '-track-change'} vertical={vertical} included={included}
+                 offset={lowerOffset} length={upperOffset - lowerOffset}/>
         );
       }
     }
@@ -424,6 +425,7 @@ Slider.propTypes = {
   range: React.PropTypes.bool,
   vertical: React.PropTypes.bool,
   allowCross: React.PropTypes.bool,
+  highlightChange: React.PropTypes.bool,
 };
 
 Slider.defaultProps = {
