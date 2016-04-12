@@ -330,6 +330,22 @@ class Slider extends React.Component {
     this.props.onAfterChange(this.getValue());
     this.setState({handle: null});
   }
+  
+  renderValueChange() {
+    if (this.props.highlightChange && this.props.defaultValue !== undefined) {
+      const v1 = this.calcOffset(this.props.defaultValue);
+      const v2 = this.calcOffset(this.state.upperBound);
+      
+      if (v1 != v2) {
+        const [lowerOffset, upperOffset] = v2 > v1 ? [v1, v2] : [v2, v1];
+      
+        return (
+          <Track className={prefixCls + '-track-change'} vertical = {vertical} included={isIncluded}
+                offset={lowerOffset} length={upperOffset - lowerOffset}/>
+        );
+      }
+    }
+  }
 
   render() {
     const {handle, upperBound, lowerBound} = this.state;
@@ -368,6 +384,7 @@ class Slider extends React.Component {
         {lower}
         <Track className={prefixCls + '-track'} vertical = {vertical} included={isIncluded}
                offset={lowerOffset} length={upperOffset - lowerOffset}/>
+        {this.renderValueChange()}
         <Steps prefixCls={prefixCls} vertical = {vertical} marks={marks} dots={dots} step={step}
               included={isIncluded} lowerBound={lowerBound}
               upperBound={upperBound} max={max} min={min}/>

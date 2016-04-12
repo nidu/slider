@@ -30,7 +30,7 @@
 
   .borderBox();
 
-  &-track {
+  &-track, &-track-change {
     position: absolute;
     left: 0;
     height: 4px;
@@ -38,7 +38,11 @@
     background-color: tint(@primary-color, 60%);
     z-index: 1;
   }
-
+  
+  &-track-change {
+    background-color: orange;
+  }
+  
   &-handle {
     position: absolute;
     margin-left: -7px;
